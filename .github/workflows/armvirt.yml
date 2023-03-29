@@ -5,7 +5,7 @@ on:
 
 env:
   REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-  CONFIG: config/armvirt.config2
+  CONFIG: config/armvirt64.config2
 
 jobs:
   build:
