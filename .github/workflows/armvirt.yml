@@ -20,7 +20,7 @@ jobs:
         run: |
           wget ${REPO_SDK}
           tar xf *.tar.xz
-          rm -f .tar.xz
+          rm -f *.tar.xz
           
       - name: Get passwall2 source
         run: |
