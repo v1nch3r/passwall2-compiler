@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 21.02.5
-  REPO_SDK: https://downloads.openwrt.org/releases/${VERSION}/targets/armvirt/64/openwrt-sdk-${VERSION}-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+  REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
   PASSWALL_REPO: https://github.com/xiaorouji/openwrt-passwall
   LUCI-APP-PASSWALL2: https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2
 
