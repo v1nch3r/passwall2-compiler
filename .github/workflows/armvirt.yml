@@ -25,7 +25,7 @@ jobs:
           
       - name: Get passwall2 source
         run: |
-          cd openwrt/
+          cd openwrt/package/
           git clone https://github.com/xiaorouji/openwrt-passwall
           svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/luci-app-passwall2
        
@@ -46,10 +46,7 @@ jobs:
         run: |
           cd openwrt/
           make defconfig
-          ls -a
-          ls -a openwrt-passwall/
-          ls -a openwrt-passwall/luci-app-passwall2/
-          make openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
+          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
