@@ -5,8 +5,6 @@ on:
 
 env:
   REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-  PASSWALL_REPO: https://github.com/xiaorouji/openwrt-passwall
-  LUCI-APP-PASSWALL2: https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2
 
 jobs:
   build:
@@ -25,8 +23,8 @@ jobs:
       - name: Get passwall2 source
         run: |
           cd openwrt-*/
-          git clone ${PASSWALL_REPO}
-          svn co ${LUCI-APP-PASSWALL2} openwrt-passwall/luci-app-passwall2
+          git clone https://github.com/xiaorouji/openwrt-passwall
+          svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/
       
       - name: Updating feeds
         run: |
