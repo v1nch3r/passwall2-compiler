@@ -46,7 +46,7 @@ jobs:
         run: |
           cd openwrt/
           make defconfig
-          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=sw
+          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=99
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
