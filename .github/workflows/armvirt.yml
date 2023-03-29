@@ -20,6 +20,7 @@ jobs:
         run: |
           wget ${REPO_SDK}
           tar xf *.tar.xz
+          rm -f .tar.xz
           
       - name: Get passwall2 source
         run: |
@@ -28,7 +29,7 @@ jobs:
           svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/
        
       - name: Load custom configuration
-        run: cp -f ${CONFIG} openwrt-*/.config
+        run: mv -f ${CONFIG} openwrt-*/.config
       
       - name: Updating feeds
         run: |
