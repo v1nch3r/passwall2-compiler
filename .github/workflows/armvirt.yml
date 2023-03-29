@@ -35,11 +35,6 @@ jobs:
         run: |
           cd openwrt-*/
           ./scripts/feeds install -a
-          
-      - name: Download passwall2 resource
-        run: |
-          cd openwrt-*/
-          make openwrt-passwall/luci-app-passwall2/download -j${nproc} V=w
       
       - name: Compile the passwall2 package
         run: |
