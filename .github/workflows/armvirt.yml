@@ -1,0 +1,59 @@
+name: passwall2-armvirt
+
+on:
+  workflow_dispatch:
+
+env:
+  REPO_SDK: https://downloads.openwrt.org/releases/${VERSION}/targets/armvirt/64/openwrt-sdk-${VERSION}-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+  VERSION: 21.02.5
+  PASSWALL_REPO: https://github.com/xiaorouji/openwrt-passwall
+  LUCI-APP-PASSWALL2: https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download sdk
+        run: |
+          wget ${REPO_SDK}
+          tar xf *.tar.xz
+          
+      - name: Get passwall2 source
+        run: |
+          cd openwrt-*/
+          git clone ${PASSWALL_REPO}
+          svn co ${LUCI-APP-PASSWALL2} openwrt-passwall/luci-app-passwall2
+      
+      - name: Updating feeds
+        run: |
+          cd openwrt-*/
+          ./scripts/feeds update -a
+          
+      - name: Installing feeds
+        run: |
+          cd openwrt-*/
+          ./scripts/feeds install -a
+          
+      - name: Download passwall2 resource
+        run: |
+          cd openwrt-*/
+          make openwrt-passwall/luci-app-passwall2/download -j${nproc} V=w
+      
+      - name: Compile the passwall2 package
+        run: |
+          cd openwrt-*/
+          make openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
+         
+      - name: Upload Package to Releases
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+        with:
+          tag: 21.02.5-armvirt
+          artifacts: "openwrt/bin/targets/armvirt/64/packages/*"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
