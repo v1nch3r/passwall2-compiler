@@ -21,29 +21,30 @@ jobs:
           wget ${REPO_SDK}
           tar xf *.tar.xz
           rm -f *.tar.xz
+          mv openwrt-* openwrt
           
       - name: Get passwall2 source
         run: |
-          cd openwrt-*/
+          cd openwrt/
           git clone https://github.com/xiaorouji/openwrt-passwall
           svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/
        
       - name: Load custom configuration
-        run: mv -f ${CONFIG} openwrt-*/.config
+        run: mv -f ${CONFIG} openwrt/.config
       
       - name: Updating feeds
         run: |
-          cd openwrt-*/
+          cd openwrt/
           ./scripts/feeds update -a
           
       - name: Installing feeds
         run: |
-          cd openwrt-*/
+          cd openwrt/
           ./scripts/feeds install -a
       
       - name: Compile the passwall2 package
         run: |
-          cd openwrt-*/
+          cd openwrt/
           make defconfig
           make openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
          
