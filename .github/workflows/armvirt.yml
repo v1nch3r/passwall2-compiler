@@ -5,6 +5,7 @@ on:
 
 env:
   REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+  CONFIG: config/armvirt.config
 
 jobs:
   build:
@@ -27,7 +28,11 @@ jobs:
           svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/
        
       - name: Load custom configuration
-        run: mv -f config/armvirt.config openwrt-*/.config
+        run: |
+          ls -a
+          cat ${CONFIG}
+          ls -a openwrt-*/
+          mv -f ${CONFIG} openwrt-*/.config
       
       - name: Updating feeds
         run: |
