@@ -27,7 +27,7 @@ jobs:
         run: |
           cd openwrt/
           git clone https://github.com/xiaorouji/openwrt-passwall
-          svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/
+          svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/luci-app-passwall2
        
       - name: Load custom configuration
         run: mv -f ${CONFIG} openwrt/.config
