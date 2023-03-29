@@ -46,6 +46,9 @@ jobs:
         run: |
           cd openwrt/
           make defconfig
+          ls -a
+          ls -a openwrt-passwall/
+          ls- a openwrt-passwall/luci-app-passwall2/
           make openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
          
       - name: Upload Package to Releases
