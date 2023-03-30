@@ -41,6 +41,8 @@ jobs:
         run: |
           cd openwrt/
           ./scripts/feeds update -a
+          rm -rf feeds/packages/lang/golang
+          svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang feeds/packages/lang/golang
           
       - name: Installing feeds
         run: |
@@ -51,7 +53,7 @@ jobs:
         run: |
           cd openwrt/
           make defconfig
-          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
+          make package/openwrt-passwall/v2ray-core/compile -j${nproc} V=w
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
