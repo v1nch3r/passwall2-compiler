@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
 
     steps:
@@ -17,7 +17,9 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Initialization enviroment
-        run: sudo apt install libcurl4-openssl-dev
+        run: |
+          sudo apt update
+          sudo apt install libcurl4-openssl-dev
 
       - name: Download sdk
         run: |
