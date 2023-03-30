@@ -74,8 +74,8 @@ jobs:
           find bin/ -type f -name 'pdnsd-alt*' -exec mv -t ../packed {} +
           make package/openwrt-passwall/shadowsocks-rust/compile -j${nproc} V=w
           find bin/ -type f -name 'shadowsocks-rust*' -exec mv -t ../packed {} +
-          make package/openwrt-passwall/shadowsocks-libev/compile -j${nproc} V=w
-          find bin/ -type f -name 'shadowsocks-libev*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/shadowsocksr-libev/compile -j${nproc} V=w
+          find bin/ -type f -name 'shadowsocksr-libev*' -exec mv -t ../packed {} +
           make package/openwrt-passwall/simple-obfs/compile -j${nproc} V=w
           find bin/ -type f -name 'simple-obfs*' -exec mv -t ../packed {} +
           make package/openwrt-passwall/sing-box/compile -j${nproc} V=w
