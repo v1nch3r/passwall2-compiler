@@ -54,13 +54,13 @@ jobs:
           cd openwrt/
           make defconfig
           make package/openwrt-passwall/v2ray-core/compile -j${nproc} V=w
-          ls -a bin/targets/armvirt/64/packages/
+          find bin/ -type f -name '*.ipk'
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: 21.02.5-armvirt
-          artifacts: "openwrt/bin/targets/armvirt/64/packages/*"
+          artifacts: "openwrt/bin/packages/aarch64_cortex-a53/base/*"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
