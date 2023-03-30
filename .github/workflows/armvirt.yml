@@ -53,7 +53,7 @@ jobs:
         run: |
           cd openwrt/
           make defconfig
-          make package/openwrt-passwall/v2ray-core/compile -j${nproc} V=w
+          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
           find bin/ -type f -name '*.ipk'
          
       - name: Upload Package to Releases
