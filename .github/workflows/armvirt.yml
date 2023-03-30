@@ -51,16 +51,57 @@ jobs:
       
       - name: Compile the passwall2 package
         run: |
-          cd openwrt/
-          make defconfig
-          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
-          find bin/ -type f -name '*.ipk'
-      
-      - name: Find && move
-        run: |
           mkdir -p packed
           cd openwrt/
-          find bin/ -type f -name '*.ipk' -exec mv -t ../packed {} +
+          make defconfig
+          make package/openwrt-passwall/brook/compile -j${nproc} V=w
+          find bin/ -type f -name 'brook*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/chinadns-ng/compile -j${nproc} V=w
+          find bin/ -type f -name 'chinadns-ng*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/dns2socks/compile -j${nproc} V=w
+          find bin/ -type f -name 'dns2socks*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/dns2tcp/compile -j${nproc} V=w
+          find bin/ -type f -name 'dns2tcp*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/hysteria/compile -j${nproc} V=w
+          find bin/ -type f -name 'hysteria*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/ipt2socks/compile -j${nproc} V=w
+          find bin/ -type f -name 'ipt2socks*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/microsocks/compile -j${nproc} V=w
+          find bin/ -type f -name 'microsocks*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/naiveproxy/compile -j${nproc} V=w
+          find bin/ -type f -name 'naiveproxy*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/pdnsd-alt/compile -j${nproc} V=w
+          find bin/ -type f -name 'pdnsd-alt*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/shadowsocks-rust/compile -j${nproc} V=w
+          find bin/ -type f -name 'shadowsocks-rust*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/shadowsocks-libev/compile -j${nproc} V=w
+          find bin/ -type f -name 'shadowsocks-libev*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/simple-obfs/compile -j${nproc} V=w
+          find bin/ -type f -name 'simple-obfs*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/sing-box/compile -j${nproc} V=w
+          find bin/ -type f -name 'sing-box*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/ssocks/compile -j${nproc} V=w
+          find bin/ -type f -name 'ssocks*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/tcping/compile -j${nproc} V=w
+          find bin/ -type f -name 'tcping*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/trojan-go/compile -j${nproc} V=w
+          find bin/ -type f -name 'trojan-go*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/trojan-plus/compile -j${nproc} V=w
+          find bin/ -type f -name 'trojan-plus*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/trojan/compile -j${nproc} V=w
+          find bin/ -type f -name 'trojan*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/v2ray-core/compile -j${nproc} V=w
+          find bin/ -type f -name 'v2ray-core*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/v2ray-geodata/compile -j${nproc} V=w
+          find bin/ -type f -name 'v2ray-geodata*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/v2ray-plugin/compile -j${nproc} V=w
+          find bin/ -type f -name 'v2ray-plugin*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/xray-core/compile -j${nproc} V=w
+          find bin/ -type f -name 'xray-core*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/xray-plugin/compile -j${nproc} V=w
+          find bin/ -type f -name 'xray-plugin*' -exec mv -t ../packed {} +
+          make package/openwrt-passwall/luci-app-passwall2/compile -j${nproc} V=w
+          find bin/ -type f -name 'luci-app-passwall2*' -exec mv -t ../packed {} +
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
