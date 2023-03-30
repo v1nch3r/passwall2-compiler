@@ -54,6 +54,7 @@ jobs:
           cd openwrt/
           make defconfig
           make package/openwrt-passwall/v2ray-core/compile -j${nproc} V=w
+          ls -a bin/targets/armvirt/64/packages/
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
