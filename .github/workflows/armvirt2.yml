@@ -43,12 +43,12 @@ jobs:
       - name: Download the package
         run: |
           cd openwrt/
+          make defconfig
           make download -j$(nproc) V=w
       
       - name: Compile the passwall2 package
         run: |
           cd openwrt/
-          make defconfig
           make -j${nproc} V=w
           find bin/ -type f -name '*.ipk'
          
