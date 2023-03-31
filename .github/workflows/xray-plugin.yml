@@ -55,7 +55,7 @@ jobs:
           cd openwrt/
           make defconfig
           make package/openwrt-passwall/xray-plugin/compile -j${nproc} V=w
-          find bin/ -type f -name 'xray-plugin*' -exec mv -t ../packed {} +
+          find bin/ -type f -name 'xray*' -exec mv -t ../packed {} +
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
