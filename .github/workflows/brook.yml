@@ -1,4 +1,4 @@
-name: passwall2-armvirt
+name: brook
 
 on:
   workflow_dispatch:
