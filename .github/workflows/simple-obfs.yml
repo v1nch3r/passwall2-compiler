@@ -1,0 +1,67 @@
+name: simple-obfs
+
+on:
+  workflow_dispatch:
+
+env:
+  REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+  CONFIG: config/armvirt64.config
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+#      - name: Initialization enviroment
+#        run: |
+#          sudo apt update
+#          sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
+
+      - name: Download sdk
+        run: |
+          wget ${REPO_SDK}
+          tar xf *.tar.xz
+          rm -f *.tar.xz
+          mv openwrt-* openwrt
+          
+      - name: Get passwall2 source
+        run: |
+          cd openwrt/package/
+          git clone https://github.com/xiaorouji/openwrt-passwall
+          svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 openwrt-passwall/luci-app-passwall2
+       
+#      - name: Load custom configuration
+#        run: mv -f ${CONFIG} openwrt/.config
+      
+      - name: Updating feeds
+        run: |
+          cd openwrt/
+          ./scripts/feeds update -a
+          rm -rf feeds/packages/lang/golang
+          svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang feeds/packages/lang/golang
+          
+      - name: Installing feeds
+        run: |
+          cd openwrt/
+          ./scripts/feeds install -a
+      
+      - name: Compile the passwall2 package
+        run: |
+          mkdir -p packed
+          cd openwrt/
+          make defconfig
+          make package/openwrt-passwall/simple-obfs/compile -j${nproc} V=w
+          find bin/ -type f -name 'simple-obfs*' -exec mv -t ../packed {} +
+         
+      - name: Upload Package to Releases
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+        with:
+          tag: 21.02.5-armvirt
+          artifacts: "packed/*"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
