@@ -55,7 +55,7 @@ jobs:
           cd openwrt/
           make defconfig
           make package/openwrt-passwall/v2ray-geodata/compile -j${nproc} V=w
-          find bin/ -type f -name 'v2ray-geo*' -exec mv -t ../packed {} +
+          find bin/ -type f -name 'v2ray*' -exec mv -t ../packed {} +
           
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
