@@ -1,4 +1,4 @@
-name: passwall2-armvirt64
+name: armvirt64
 
 on:
   workflow_dispatch:
