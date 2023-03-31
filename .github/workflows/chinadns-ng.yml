@@ -54,8 +54,8 @@ jobs:
           mkdir -p packed
           cd openwrt/
           make defconfig
+          make package/openwrt-passwall/chinadns-ng/compile -j${nproc} V=w
           find bin/ -type f -name 'chinadns-ng*' -exec mv -t ../packed {} +
-          make package/openwrt-passwall/dns2socks/compile -j${nproc} V=w
          
       - name: Upload Package to Releases
         uses: ncipollo/release-action@main
