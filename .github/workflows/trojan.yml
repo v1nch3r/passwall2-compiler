@@ -1,4 +1,4 @@
-name: passwall2-trojan
+name: trojan
 
 on:
   workflow_dispatch:
