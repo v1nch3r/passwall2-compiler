@@ -54,6 +54,7 @@ jobs:
           mkdir -p packed
           cd openwrt/
           make defconfig
+          make package/feeds/packages/ninja/compile -j${nproc} V=w
           make package/openwrt-passwall/naiveproxy/compile -j${nproc} V=w
           find bin/ -type f -name 'naiveproxy*' -exec mv -t ../packed {} +
          
