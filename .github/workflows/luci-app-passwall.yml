@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/armvirt/64/openwrt-sdk-21.02.5-armvirt-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-  CONFIG: config/armvirt64.config
+  REPO_SDK: https://downloads.openwrt.org/releases/21.02.5/targets/x86/64/openwrt-sdk-21.02.5-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+#  CONFIG: config/armvirt64.config
 
 jobs:
   build:
@@ -62,7 +62,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: 21.02.5-armvirt
+          tag: 21.02.5-x86_64
           artifacts: "packed/*"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
